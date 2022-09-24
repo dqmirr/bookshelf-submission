@@ -85,6 +85,15 @@ function insertBooks(booksList) {
   container.classList.add('item')
   container.append(textContainer);
   container.setAttribute('id', `books-${id}`);
+  
+  const trashButton = document.createElement('button');
+  trashButton.classList.add('delete');
+  trashButton.addEventListener('click', function () {
+    if(confirm("Data yang anda pilih akan dihapus"))
+    {
+      removeBooksFromCompleted(id);
+    };
+  });
 
   if (isCompleted) {
     const buttonContainer  = document.createElement('div');
@@ -95,15 +104,8 @@ function insertBooks(booksList) {
     undoButton.addEventListener('click', function () {
       undoBooksFromCompleted(id);
     });
-
-    const trashButton = document.createElement('button');
-    trashButton.classList.add('delete');
-    trashButton.addEventListener('click', function () {
-      if(confirm("Daata yang anda pilih akan dihapus"))
-      {
-        removeBooksFromCompleted(id);
-      };
-    });
+    
+   
 
     buttonContainer.appendChild(undoButton);
     buttonContainer.appendChild(trashButton);
@@ -112,14 +114,19 @@ function insertBooks(booksList) {
 
     const checkButton = document.createElement('button');
     checkButton.classList.add('check');
+
     checkButton.addEventListener('click', function () {
       addBooksToCompleted(id);
       
     });
 
-    container.append(checkButton);
     const buttonContainer  = document.createElement('div');
     buttonContainer.classList.add('button-container');
+    
+    buttonContainer.appendChild(checkButton);
+    buttonContainer.appendChild(trashButton);
+    container.appendChild(buttonContainer);
+    
 
   }
 
@@ -211,3 +218,4 @@ document.addEventListener(RENDER_EVENT, function () {
     }
   }
 })
+//store checkbox value to localstorage javascript?
